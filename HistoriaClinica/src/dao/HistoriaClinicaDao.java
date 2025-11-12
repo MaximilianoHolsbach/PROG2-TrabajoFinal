@@ -44,7 +44,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
 
     @Override
     public void actualizar(HistoriaClinica entidad) throws Exception {
-        String sql = "UPDATE HistoriaClinica SET NroHistoria=?, GrupoSanguineo=?, Antecedentes=?, MedicacionActual=?, Observaciones=? WHERE id=? AND eliminado=false";
+        String sql = "UPDATE HistoriaClinica SET NroHistoria=?, GrupoSanguineo=?, Antecedentes=?, MedicacionActual=?, Observaciones=? WHERE ID_HistoriaClinica=? AND eliminado=false";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -63,7 +63,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
 
     @Override
     public void eliminar(int id) throws Exception {
-        String sql = "UPDATE HistoriaClinica SET eliminado=true WHERE id=?";
+        String sql = "UPDATE HistoriaClinica SET eliminado=true WHERE ID_HistoriaClinica=?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -114,6 +114,31 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
             } catch (SQLException e) {
                 throw new Exception("Error al obtener historia clínica por ID: " + e.getMessage(), e);
             }
+    }
+    public HistoriaClinica getByNroHistoria(String NroHistoria) throws Exception{
+        String sql = "SELECT * FROM HistoriaClinica WHERE NroHistoria = ? AND eliminado = false";
+        try (Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql)){
+            
+            stmt.setString(1, NroHistoria);
+            ResultSet rs = stmt.executeQuery();
+            if(rs.next()){
+                return new HistoriaClinica(
+                    rs.getString("NroHistoria"),
+                    GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                    rs.getString("Antecedentes"),
+                    rs.getString("MedicacionActual"),
+                    rs.getString("Observaciones"),
+                    rs.getInt("ID_HistoriaClinica"),
+                    rs.getBoolean("Eliminado")
+                );
+            }else{
+                return null;
+            }
+            
+        } catch (Exception e) {
+            throw new Exception("Error al obtener historia clínica por NroHistoria: " + e.getMessage(), e);
+        }
     }
 
     @Override

@@ -13,6 +13,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import modelo.GrupoSanguineo;
 import modelo.HistoriaClinica;
 import modelo.Paciente;
 
@@ -117,7 +118,14 @@ public class PacienteDao implements GenericDao<Paciente>{
     }
     
     public Paciente getByDni(String dni) throws Exception {
-        String sql = "SELECT * FROM pacientes WHERE dni = ? AND eliminado = false";
+        String sql = """
+            SELECT p.ID_Paciente, p.Nombre, p.Apellido, p.DNI, p.FechaNacimiento, p.Eliminado,
+                h.ID_HistoriaClinica, h.NroHistoria, h.GrupoSanguineo, h.Antecedentes, h.MedicacionActual, h.Observaciones, h.Eliminado AS HC_Eliminado
+            FROM pacientes p
+            JOIN HistoriaClinica h ON p.ID_HistoriaClinica = h.ID_HistoriaClinica
+            WHERE p.DNI = ? AND p.Eliminado = false
+            """;
+
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -125,14 +133,24 @@ public class PacienteDao implements GenericDao<Paciente>{
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
+                HistoriaClinica historia = new HistoriaClinica(
+                    rs.getString("NroHistoria"),
+                    GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                    rs.getString("Antecedentes"),
+                    rs.getString("MedicacionActual"),
+                    rs.getString("Observaciones"),
+                    rs.getInt("ID_HistoriaClinica"),
+                    rs.getBoolean("HC_Eliminado")
+                );
+
                 return new Paciente(
-                    rs.getString("nombre"),
-                    rs.getString("apellido"),
-                    rs.getString("dni"),
+                    rs.getString("Nombre"),
+                    rs.getString("Apellido"),
+                    rs.getString("DNI"),
                     rs.getDate("FechaNacimiento").toLocalDate(),
-                    null, // HistoriaClinica se puede cargar aparte si lo necesitás
+                    historia,
                     rs.getInt("ID_Paciente"),
-                    rs.getBoolean("eliminado")
+                    rs.getBoolean("Eliminado")
                 );
             } else {
                 return null;
@@ -142,6 +160,7 @@ public class PacienteDao implements GenericDao<Paciente>{
             throw new Exception("Error al obtener paciente por DNI: " + e.getMessage(), e);
         }
     }
+
 
 
     @Override

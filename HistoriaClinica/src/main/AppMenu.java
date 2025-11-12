@@ -33,6 +33,7 @@ public class AppMenu {
             System.out.println("5. Eliminar Paciente");
             System.out.println("6. Recuperar Paciente");
             System.out.println("7. Listar Historias Clínicas");
+            System.out.println("8. Actualizar Historia Clínica");
             System.out.println("0. Salir");
             System.out.print("Opción: ");
 
@@ -96,14 +97,15 @@ public class AppMenu {
                         System.out.println("Ingrese DNI a buscar:");
                         String dni = scanner.nextLine();
                         Paciente p = pacienteService.getByDni(dni);
-                        if (p != null) System.out.println(p);
+                        if (p != null) System.out.println(p+"\n"+p.getHistoriaClinica());
+                        
                         else System.out.println("⚠️ Paciente no encontrado.");
                     }
 
                     case 4 -> {
-                        System.out.println("Ingrese ID del paciente a actualizar:");
-                        int id = Integer.parseInt(scanner.nextLine());
-                        Paciente p = pacienteService.getById(id);
+                        System.out.println("Ingrese el DNI del paciente a actualizar:");
+                        String dni = scanner.nextLine();
+                        Paciente p = pacienteService.getByDni(dni);
                         if (p != null) {
                             System.out.println("Nuevo nombre:");
                             p.setNombre(scanner.nextLine());
@@ -133,6 +135,23 @@ public class AppMenu {
                     case 7 -> {
                         List<HistoriaClinica> historias = historiaService.getAll();
                         historias.forEach(System.out::println);
+                    }
+                    case 8 -> {
+                        System.out.println("Ingrese el NroHistoria a actualizar:");
+                        String NroHistoria = scanner.nextLine();
+                        HistoriaClinica hc = historiaService.getByNroHistoria(NroHistoria);
+                        if (hc != null) {
+                            System.out.println("Nuevo antecedente:");
+                            hc.setAntecedentes(scanner.nextLine());
+                            System.out.println("Nueva medicacion:");
+                            hc.setMedicacionActual(scanner.nextLine());
+                            System.out.println("Nueva observacion:");
+                            hc.setObservaciones(scanner.nextLine());
+                            historiaService.actualizar(hc);
+                            System.out.println("✅ Historia actualizada.");
+                        } else {
+                            System.out.println("⚠️ Historia no encontrada.");
+                        }
                     }
 
                     case 0 -> System.out.println("👋 Saliendo del sistema...");
