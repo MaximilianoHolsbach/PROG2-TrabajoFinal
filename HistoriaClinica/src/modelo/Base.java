@@ -6,7 +6,6 @@ public abstract class Base {
     
 
     // Getters, setters, constructor vacío y completo
-
     public Base() {
     }
 

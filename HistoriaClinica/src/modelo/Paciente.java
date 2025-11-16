@@ -67,6 +67,14 @@ public class Paciente extends Base{
 
     @Override
     public String toString() {
-        return PURPLE+"Paciente"+RESET+"{" + "nombre = " + nombre + ", apellido = " + apellido + ", dni = " + dni + ", fechaNacimiento = " + fechaNacimiento +"}";
+                java.time.format.DateTimeFormatter fmt =
+                java.time.format.DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        String fecha = (fechaNacimiento != null)
+                ? fechaNacimiento.format(fmt)
+                : "N/A";
+        
+        return PURPLE+"Paciente"+RESET+"{" + "id = " + getId() +
+                ", nombre = " + nombre + ", apellido = " + apellido + ", dni = " + dni + ", fechaNacimiento = " + fecha +"}";
     }    
 }

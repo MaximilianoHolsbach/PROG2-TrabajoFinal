@@ -11,7 +11,6 @@ import modelo.GrupoSanguineo;
 import modelo.HistoriaClinica;
 
 public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
-    //public void insertarConTransaccion(HistoriaClinica hc, Connection conn);
 
     @Override
     public void insertar(HistoriaClinica entidad) throws Exception {
@@ -19,7 +18,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
         try (Connection conn = DatabaseConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);){
             stmt.setString(1, entidad.getNroHistoria());
-            stmt.setString(2, entidad.getGrupoSanguineo().name());
+            stmt.setInt(2, entidad.getGrupoSanguineo().getCodigo());
             stmt.setString(3, entidad.getAntecedentes());
             stmt.setString(4, entidad.getMedicacionActual());
             stmt.setString(5, entidad.getObservaciones());
@@ -31,7 +30,6 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
         } catch (SQLException e) {
             throw new RuntimeException("Error en transacción al insertar historia clínica: " + e.getMessage(), e);
         }
-
     }
 
     @Override
@@ -41,7 +39,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, entidad.getNroHistoria());
-            stmt.setString(2, entidad.getGrupoSanguineo().name());
+            stmt.setInt(2, entidad.getGrupoSanguineo().getCodigo());
             stmt.setString(3, entidad.getAntecedentes());
             stmt.setString(4, entidad.getMedicacionActual());
             stmt.setString(5, entidad.getObservaciones());
@@ -92,7 +90,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
                 if (rs.next()) {
                     return new HistoriaClinica(
                         rs.getString("NroHistoria"),
-                        GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                        GrupoSanguineo.fromCodigo(rs.getInt("GrupoSanguineo")),
                         rs.getString("Antecedentes"),
                         rs.getString("MedicacionActual"),
                         rs.getString("Observaciones"),
@@ -117,7 +115,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
             if(rs.next()){
                 return new HistoriaClinica(
                     rs.getString("NroHistoria"),
-                    GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                    GrupoSanguineo.fromCodigo(rs.getInt("GrupoSanguineo")),
                     rs.getString("Antecedentes"),
                     rs.getString("MedicacionActual"),
                     rs.getString("Observaciones"),
@@ -145,7 +143,7 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
                 while (rs.next()) {
                     HistoriaClinica hc = new HistoriaClinica(
                         rs.getString("NroHistoria"),
-                        GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                        GrupoSanguineo.fromCodigo(rs.getInt("GrupoSanguineo")),
                         rs.getString("Antecedentes"),
                         rs.getString("MedicacionActual"),
                         rs.getString("Observaciones"),
@@ -158,9 +156,6 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
             } catch (SQLException e) {
                 throw new Exception("Error al listar historias clínicas: " + e.getMessage(), e);
             }
-
             return lista;
-
-        }
-    
+        }    
 }

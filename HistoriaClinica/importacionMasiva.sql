@@ -4,16 +4,16 @@ USE clinica53;
 
 INSERT INTO HistoriaClinica (NroHistoria, GrupoSanguineo, Antecedentes, MedicacionActual, Observaciones)
 VALUES
-('HC001', 'O_POS', 'Hipertensión Arterial', 'Losartán 50mg', 'Control de presión arterial bimensual.'),
-('HC002', 'A_POS', 'Asma bronquial', 'Salbutamol SOS', 'Evitar alérgenos conocidos.'),
-('HC003', 'B_NEG', 'Diabetes Mellitus Tipo 2', 'Metformina 850mg c/12hs', 'Requiere control de glucemia y dieta estricta.'),
-('HC004', 'AB_POS', 'Ninguno de relevancia', 'Ninguna', 'Paciente sano, chequeo anual.'),
-('HC005', 'O_NEG', 'Alergia a la penicilina', 'Loratadina ocasional', 'Antecedente de anafilaxia. Marcar en rojo.'),
-('HC006', 'A_NEG', 'Hipotiroidismo', 'Levotiroxina 75mcg', 'Control de TSH semestral.'),
-('HC007', 'B_POS', 'Cirugía de apendicitis (2015)', 'Ninguna', 'Buena recuperación postquirúrgica.'),
-('HC008', 'A_POS', 'Miopía', 'Ninguna', 'Usa lentes de contacto.'),
-('HC009', 'O_POS', 'Gastritis crónica', 'Omeprazol 20mg ayunas', 'Evitar comidas irritantes y alcohol.'),
-('HC010', 'AB_NEG', 'Ansiedad generalizada', 'Sertralina 50mg', 'En seguimiento por psiquiatría.');
+('30123456', 1, 'Hipertensión Arterial', 'Losartán 50mg', 'Control de presión arterial bimensual.'),
+('32987654', 2, 'Asma bronquial', 'Salbutamol SOS', 'Evitar alérgenos conocidos.'),
+('28456789', 3, 'Diabetes Mellitus Tipo 2', 'Metformina 850mg c/12hs', 'Requiere control de glucemia y dieta estricta.'),
+('35123123', 8, 'Ninguno de relevancia', 'Ninguna', 'Paciente sano, chequeo anual.'),
+('38765432', 0, 'Alergia a la penicilina', 'Loratadina ocasional', 'Antecedente de anafilaxia. Marcar en rojo.'),
+('40123456', 5, 'Hipotiroidismo', 'Levotiroxina 75mcg', 'Control de TSH semestral.'),
+('25123987', 6, 'Cirugía de apendicitis (2015)', 'Ninguna', 'Buena recuperación postquirúrgica.'),
+('42789012', 2, 'Miopía', 'Ninguna', 'Usa lentes de contacto.'),
+('33456789', 4, 'Gastritis crónica', 'Omeprazol 20mg ayunas', 'Evitar comidas irritantes y alcohol.'),
+('36987123', 3, 'Ansiedad generalizada', 'Sertralina 50mg', 'En seguimiento por psiquiatría.'); 
 
 -- INSERTAR LOS 10 PACIENTES
 

@@ -6,7 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import config.DatabaseConnection;
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import modelo.GrupoSanguineo;
@@ -127,7 +126,7 @@ public class PacienteDao implements GenericDao<Paciente>{
             if (rs.next()) {
                 HistoriaClinica historia = new HistoriaClinica(
                     rs.getString("NroHistoria"),
-                    GrupoSanguineo.valueOf(rs.getString("GrupoSanguineo")),
+                    GrupoSanguineo.fromCodigo(rs.getInt("GrupoSanguineo")),
                     rs.getString("Antecedentes"),
                     rs.getString("MedicacionActual"),
                     rs.getString("Observaciones"),

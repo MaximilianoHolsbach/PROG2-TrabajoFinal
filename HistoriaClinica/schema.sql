@@ -12,7 +12,7 @@ CREATE TABLE HistoriaClinica (
     ID_HistoriaClinica BIGINT AUTO_INCREMENT PRIMARY KEY,
     Eliminado BOOLEAN DEFAULT FALSE, -- Baja logica 
     NroHistoria VARCHAR(20) UNIQUE,
-    GrupoSanguineo ENUM('A_POS', 'A_NEG', 'B_POS', 'B_NEG', 'AB_POS', 'AB_NEG', 'O_POS', 'O_NEG'),
+    GrupoSanguineo TINYINT NOT NULL DEFAULT 0,
     Antecedentes TEXT,
     MedicacionActual TEXT,
     Observaciones TEXT
