@@ -10,6 +10,13 @@ import modelo.HistoriaClinica;
 import modelo.Paciente;
 
 public class AppMenu {
+    public static final String RESET = "\u001B[0m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String GREEN  = "\u001B[32m";
+    public static final String RED    = "\u001B[31m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String YELLOW = "\u001B[33m";
+    
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int opcion;
@@ -17,42 +24,50 @@ public class AppMenu {
         HistoriaClinicaDao historiaService = new HistoriaClinicaDao();
 
         do {
-            System.out.println("=== Menu Principal ===");
-            System.out.println("===   clinica 53   ===");
+            System.out.print("\n");
+            System.out.println(GREEN+"=== Menu Principal ==="+RESET);
+            System.out.println(GREEN+"===   Clinica 53   ==="+RESET);
             System.out.println("1. Crear Paciente");
             System.out.println("2. Listar Pacientes");
             System.out.println("3. Buscar por DNI");
             System.out.println("4. Actualizar Paciente");
             System.out.println("5. Eliminar Paciente");
             System.out.println("6. Recuperar Paciente");
-            System.out.println("7. Listar Historias Clinicas");
-            System.out.println("8. Actualizar Historia Clinica");
+            System.out.println("7. Listar Historias Clínicas");
+            System.out.println("8. Actualizar Historia Clínica");
             System.out.println("0. Salir");
-            System.out.print("Opcion: ");
-               
+            System.out.print("Opción: ");
 
             try {
                 opcion = Integer.parseInt(scanner.nextLine());
 
                 switch (opcion) {
                     case 1 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese nombre:");
                         String nombre = scanner.nextLine();
+                        
                         System.out.println("Ingrese apellido:");
                         String apellido = scanner.nextLine();
+                        
                         System.out.println("Ingrese DNI:");
                         String dni = scanner.nextLine();
+                        
                         System.out.println("Ingrese fecha de nacimiento (YYYY-MM-DD):");
                         LocalDate fecha = LocalDate.parse(scanner.nextLine());
 
                         System.out.println("Ingrese número de historia clínica:");
                         String nroHistoria = scanner.nextLine();
+                        
                         System.out.println("Grupo sanguíneo (A_POS, A_NEG, B_POS, B_NEG, AB_POS, AB_NEG, O_POS, O_NEG):");
                         GrupoSanguineo grupo = GrupoSanguineo.valueOf(scanner.nextLine().toUpperCase());
+                        
                         System.out.println("Antecedentes:");
                         String antecedentes = scanner.nextLine();
+                        
                         System.out.println("Medicación actual:");
                         String medicacion = scanner.nextLine();
+                        
                         System.out.println("Observaciones:");
                         String observaciones = scanner.nextLine();
 
@@ -78,58 +93,67 @@ public class AppMenu {
 
                         historiaService.insertar(hc);
                         pacienteService.insertar(paciente);
-                        System.out.println("✅ Paciente creado con historia clínica.");
+                        System.out.println(CYAN+"✅ Paciente creado con historia clínica."+RESET);
                     }
 
                     case 2 -> {
+                        System.out.print("\n");
                         List<Paciente> pacientes = pacienteService.getAll();
                         pacientes.forEach(System.out::println);
                     }
 
                     case 3 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese DNI a buscar:");
                         String dni = scanner.nextLine();
                         Paciente p = pacienteService.getByDni(dni);
                         if (p != null) System.out.println(p+"\n"+p.getHistoriaClinica());
                         
-                        else System.out.println("⚠️ Paciente no encontrado.");
+                        else System.out.println(RED+"⚠️ Paciente no encontrado."+RESET);
                     }
 
                     case 4 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese el DNI del paciente a actualizar:");
                         String dni = scanner.nextLine();
                         Paciente p = pacienteService.getByDni(dni);
                         if (p != null) {
-                            System.out.println("Nuevo nombre:");
-                            p.setNombre(scanner.nextLine());
-                            System.out.println("Nuevo apellido:");
-                            p.setApellido(scanner.nextLine());
+                            System.out.print("Nuevo nombre (actual: " + p.getNombre() + ", "+CYAN+"Enter para mantener"+RESET+"): ");
+                            String input = scanner.nextLine().trim();
+                            if (!input.isEmpty()) p.setNombre(input);
+                            System.out.print("Nuevo apellido (actual: " + p.getApellido() + ", "+CYAN+"Enter para mantener"+RESET+"): ");
+                            input = scanner.nextLine().trim();
+                            if (!input.isEmpty()) p.setApellido(input);
                             pacienteService.actualizar(p);
-                            System.out.println("✅ Paciente actualizado.");
+                            System.out.println(CYAN+"✅ Paciente actualizado."+RESET);
                         } else {
-                            System.out.println("⚠️ Paciente no encontrado.");
+                            System.out.println(RED+"⚠ Paciente no encontrado."+RESET);
                         }
                     }
 
                     case 5 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese ID del paciente a eliminar:");
                         int id = Integer.parseInt(scanner.nextLine());
                         pacienteService.eliminar(id);
-                        System.out.println("✅ Paciente eliminado (baja lógica).");
+                        System.out.println(CYAN+"✅ Paciente eliminado (baja lógica)."+RESET);
                     }
                     
                     case 6 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese ID del paciente a recuperar:");
                         int id = Integer.parseInt(scanner.nextLine());
                         pacienteService.recuperar(id);
-                        System.out.println("✅ Paciente recuperado.");
+                        System.out.println(CYAN+"✅ Paciente recuperado."+RESET);
                     }
 
                     case 7 -> {
+                        System.out.print("\n");
                         List<HistoriaClinica> historias = historiaService.getAll();
                         historias.forEach(System.out::println);
                     }
                     case 8 -> {
+                        System.out.print("\n");
                         System.out.println("Ingrese el NroHistoria a actualizar:");
                         String NroHistoria = scanner.nextLine();
                         HistoriaClinica hc = historiaService.getByNroHistoria(NroHistoria);
@@ -141,18 +165,18 @@ public class AppMenu {
                             System.out.println("Nueva observacion:");
                             hc.setObservaciones(scanner.nextLine());
                             historiaService.actualizar(hc);
-                            System.out.println("✅ Historia actualizada.");
+                            System.out.println(CYAN+"✅ Historia actualizada."+RESET);
                         } else {
-                            System.out.println("⚠️ Historia no encontrada.");
+                            System.out.println(RED+"⚠️ Historia no encontrada."+RESET);
                         }
                     }
 
-                    case 0 -> System.out.println("👋 Saliendo del sistema...");
-                    default -> System.out.println("⚠️ Opción inválida.");
+                    case 0 -> System.out.println(PURPLE+"👋 Saliendo del sistema..."+RESET);
+                    default -> System.out.println(RED+"⚠️ Opción inválida."+RESET);
                 }
 
             } catch (Exception e) {
-                System.out.println("⚠️ Error: " + e.getMessage());
+                System.out.println(RED+"⚠️ Error: " + e.getMessage()+RESET);
                 opcion = -1;
             }
 
@@ -161,3 +185,4 @@ public class AppMenu {
         scanner.close();
     }
 }
+

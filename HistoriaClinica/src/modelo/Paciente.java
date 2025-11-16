@@ -3,6 +3,9 @@ package modelo;
 import java.time.LocalDate;
 
 public class Paciente extends Base{
+    public static final String RESET = "\u001B[0m";
+    public static final String PURPLE = "\u001B[35m";
+    
     private String nombre;
     private String apellido;
     private String dni;
@@ -62,11 +65,8 @@ public class Paciente extends Base{
         this.historiaClinica = historiaClinica;
     }
 
-
     @Override
     public String toString() {
-        return "Paciente{" + "nombre=" + nombre + ", apellido=" + apellido + ", dni=" + dni + ", fechaNacimiento=" + fechaNacimiento +" '}'";
-    }
-    
-    
+        return PURPLE+"Paciente"+RESET+"{" + "nombre = " + nombre + ", apellido = " + apellido + ", dni = " + dni + ", fechaNacimiento = " + fechaNacimiento +"}";
+    }    
 }

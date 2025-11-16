@@ -1,6 +1,9 @@
 package modelo;
 
 public class HistoriaClinica extends Base{
+    public static final String RESET = "\u001B[0m";
+    public static final String PURPLE = "\u001B[35m";
+    
     private String nroHistoria;
     private GrupoSanguineo grupoSanguineo;
     private String antecedentes;
@@ -62,8 +65,6 @@ public class HistoriaClinica extends Base{
 
     @Override
     public String toString() {
-        return "HistoriaClinica{" + "nroHistoria=" + nroHistoria + ", grupoSanguineo=" + grupoSanguineo + ", antecedentes=" + antecedentes + ", medicacionActual=" + medicacionActual + ", observaciones=" + observaciones + '}';
-    }
-    
-    
+        return PURPLE+"HistoriaClinica"+RESET+"{" + "nroHistoria = " + nroHistoria + ", grupoSanguineo = " + grupoSanguineo + ", antecedentes = " + antecedentes + ", medicacionActual = " + medicacionActual + ", observaciones = " + observaciones + '}';
+    }   
 }
