@@ -105,6 +105,35 @@ public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
                 throw new Exception("Error al obtener historia clínica por ID: " + e.getMessage(), e);
             }
     }
+
+        @Override
+    public HistoriaClinica getByIdEliminado(int id) throws Exception {
+            String sql = "SELECT * FROM HistoriaClinica WHERE ID_HistoriaClinica = ?";
+            try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+                stmt.setInt(1, id);
+                ResultSet rs = stmt.executeQuery();
+
+                if (rs.next()) {
+                    return new HistoriaClinica(
+                        rs.getString("NroHistoria"),
+                        GrupoSanguineo.fromCodigo(rs.getInt("GrupoSanguineo")),
+                        rs.getString("Antecedentes"),
+                        rs.getString("MedicacionActual"),
+                        rs.getString("Observaciones"),
+                        rs.getInt("ID_HistoriaClinica"),
+                        rs.getBoolean("Eliminado")
+                    );
+                } else {
+            return null;
+                }
+
+            } catch (SQLException e) {
+                throw new Exception("Error al obtener historia clínica por ID: " + e.getMessage(), e);
+            }
+    }
+
     public HistoriaClinica getByNroHistoria(String NroHistoria) throws Exception{
         String sql = "SELECT * FROM HistoriaClinica WHERE NroHistoria = ? AND eliminado = false";
         try (Connection conn = DatabaseConnection.getConnection();

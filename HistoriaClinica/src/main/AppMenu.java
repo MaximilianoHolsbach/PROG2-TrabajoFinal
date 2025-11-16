@@ -242,15 +242,28 @@ public void iniciar() {
 
     // 8. ACTUALIZAR HISTORIA CLÍNICA
     private void actualizarHistoria() throws Exception {
-        System.out.print("Ingrese NroHistoria a actualizar: ");
-        String NroHistoria = scanner.nextLine();
-
-        HistoriaClinica hc = historiaService.getByNroHistoria(NroHistoria);
+        String histClinica = validarHistClinica("\nIngrese NroHistoria a actualizar: "); 
+        HistoriaClinica hc = historiaService.getByNroHistoria(histClinica);
 
         if (hc == null) {
             System.out.println(RED + "⚠ Historia no encontrada." + RESET);
             return;
         }
+
+                    System.out.println("""
+                    Grupo sanguíneo (número): \n
+                    0 = Desconocido           
+                    1 = A+
+                    2 = A-
+                    3 = B+
+                    4 = B-
+                    5 = AB+
+                    6 = AB-
+                    7 = 0+
+                    8 = 0-                    
+                    """);
+
+            GrupoSanguineo grupo = validarGrupoSanguineo("Código (0-8): ");
 
         System.out.print("Nuevo antecedente: ");
         hc.setAntecedentes(scanner.nextLine());
@@ -295,7 +308,7 @@ public void iniciar() {
             dni = scanner.nextLine().trim();
 
             if (!dni.matches("^[0-9]+$")) {
-                System.out.println(RED + "❌ DNI inválido, solo números." + RESET);
+                System.out.println(RED + "❌ DNI inválido, solo se aceptan números." + RESET);
                 continue;
             }
             return dni;
@@ -335,11 +348,25 @@ public void iniciar() {
             String input = scanner.nextLine().trim();
 
             if (!input.matches("^[0-9]+$")) {
-                System.out.println(RED + "❌ Id inválido, solo números." + RESET);
+                System.out.println(RED + "❌ Id inválido, solo se aceptan números." + RESET);
                 continue;
             }
 
             return Integer.parseInt(input);  // ✔ devuelve int
+        }
+    }
+
+        private String validarHistClinica(String msg) {
+        String hc;
+        while (true) {
+            System.out.print(msg);
+            hc = scanner.nextLine().trim();
+
+            if (!hc.matches("^[0-9]+$")) {
+                System.out.println(RED + "❌ Historia clinica inválida, solo se aceptan números." + RESET);
+                continue;
+            }
+            return hc;
         }
     }
 

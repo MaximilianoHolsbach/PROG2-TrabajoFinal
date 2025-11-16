@@ -1,4 +1,3 @@
-
 -- Eliminamos la base de datos en caso de que exista, y luego creamos una base de datos nueva.
 
 DROP DATABASE IF EXISTS clinica53;
@@ -30,7 +29,7 @@ CREATE TABLE pacientes (
     DNI VARCHAR(15) NOT NULL UNIQUE,
     FechaNacimiento DATE,
     ID_HistoriaClinica BIGINT UNIQUE, -- La referencia unica garantiza la relación uno a uno
-     FOREIGN KEY (ID_HistoriaClinica) REFERENCES HistoriaClinica(ID_HistoriaClinica)
+    FOREIGN KEY (ID_HistoriaClinica) REFERENCES HistoriaClinica(ID_HistoriaClinica)
         ON DELETE CASCADE
         ON UPDATE CASCADE
 );
