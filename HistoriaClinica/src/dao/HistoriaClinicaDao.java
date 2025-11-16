@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,10 +10,6 @@ import java.util.List;
 import modelo.GrupoSanguineo;
 import modelo.HistoriaClinica;
 
-/**
- *
- * @author Maxi
- */
 public class HistoriaClinicaDao implements GenericDao<HistoriaClinica>{
     //public void insertarConTransaccion(HistoriaClinica hc, Connection conn);
 

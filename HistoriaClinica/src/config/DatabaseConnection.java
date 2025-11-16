@@ -7,7 +7,7 @@ public class DatabaseConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/clinica53";
     private static final String USER = "root";
     private static final String PASSWORD = "admin";
-
+    
     static {
         try {
             //Carga del driver JDBC de MySQL
@@ -20,7 +20,7 @@ public class DatabaseConnection {
     public static Connection getConnection() throws SQLException {
         //Validación para asegurar que las credenciales no estén vacías
         if (URL == null || URL.isEmpty() || USER == null || USER.isEmpty() || PASSWORD == null || PASSWORD.isEmpty()) {
-            throw new SQLException("Configuración de la base de datos óincompleta o inválida.");
+            throw new SQLException("Configuración de la base de datos ó incompleta o inválida.");
         }
 
         return DriverManager.getConnection(URL, USER, PASSWORD);

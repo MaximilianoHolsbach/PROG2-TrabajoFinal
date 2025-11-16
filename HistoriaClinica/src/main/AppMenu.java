@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package main;
 
 import dao.HistoriaClinicaDao;
@@ -13,10 +9,6 @@ import modelo.GrupoSanguineo;
 import modelo.HistoriaClinica;
 import modelo.Paciente;
 
-/**
- *
- * @author Maxi
- */
 public class AppMenu {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -25,17 +17,19 @@ public class AppMenu {
         HistoriaClinicaDao historiaService = new HistoriaClinicaDao();
 
         do {
-            System.out.println("=== Menú Principal ===");
+            System.out.println("=== Menu Principal ===");
+            System.out.println("===   clinica 53   ===");
             System.out.println("1. Crear Paciente");
             System.out.println("2. Listar Pacientes");
             System.out.println("3. Buscar por DNI");
             System.out.println("4. Actualizar Paciente");
             System.out.println("5. Eliminar Paciente");
             System.out.println("6. Recuperar Paciente");
-            System.out.println("7. Listar Historias Clínicas");
-            System.out.println("8. Actualizar Historia Clínica");
+            System.out.println("7. Listar Historias Clinicas");
+            System.out.println("8. Actualizar Historia Clinica");
             System.out.println("0. Salir");
-            System.out.print("Opción: ");
+            System.out.print("Opcion: ");
+               
 
             try {
                 opcion = Integer.parseInt(scanner.nextLine());
