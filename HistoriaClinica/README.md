@@ -30,7 +30,7 @@ El desarrollo de este sistema permite aplicar y consolidar los siguientes concep
 - Uso de PreparedStatements para prevenir SQL Injection
 - Gestión de transacciones con commit y rollback
 - Manejo de claves autogeneradas (AUTO_INCREMENT)
-- Consultas con LEFT JOIN para relaciones entre entidades
+- Consultas con JOIN para relaciones entre entidades
 
 **4. Manejo de Recursos y Excepciones**
 - Uso del patrón try-with-resources para gestión automática de recursos JDBC
@@ -370,7 +370,7 @@ Gestiona transacciones (commit / rollback)
 1. **DNI único**: No se permiten personas con DNI duplicado
 2. **Campos obligatorios**: Nombre, apellido y DNI son requeridos para paciente
 3. **Validación antes de persistir**: Service layer valida antes de llamar a DAO
-4. **Eliminación segura de paciente**: Usar opción 5, pide DNI
+4. **Eliminación segura de paciente**: Usar opción 5, pide ID
 5. **Preservación de valores**: En actualización, campos vacíos mantienen valor original
 6. **Transacciones**: Operaciones complejas soportan rollback
 
@@ -402,13 +402,12 @@ Gestiona transacciones (commit / rollback)
 2. **Interfaz solo consola**: No hay GUI gráfica
 3. **Una historia clinica por paciente**: No soporta múltiples historias clinicas
 4. **Sin paginación**: Listar todos puede ser lento con muchos registros
-5. **Opción 8 peligrosa**: Eliminar domicilio por ID puede dejar referencias huérfanas (usar opción 10)
-6. **Sin pool de conexiones**: Nueva conexión por operación (aceptable para app de consola)
-7. **Para eliminar y recuperar paciente solo con id**: Se debe conocer el id del paciente para eliminarlo y recuperarlo
+5. **Sin pool de conexiones**: Nueva conexión por operación (aceptable para app de consola)
+6. **Para eliminar y recuperar paciente solo con id**: Se debe conocer el id del paciente para eliminarlo y recuperarlo
 
 ## Documentación Adicional
 
-Aca van aquellos documentos md que se agreguen a parte del readme, ejemplo historias de usuarios
+En el proyecto se adjuntaron archivos SQL con los scripts necesarios para la creacion de BD y tablas, tambien de carga masiva y queries
 
 ## Tecnologías Utilizadas
 
