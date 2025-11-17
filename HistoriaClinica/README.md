@@ -268,9 +268,7 @@ HistoriaClinica{nroHistoria=30123456, grupoSanguineo=O-, antecedentes=Estado gri
 ┌───────────▼─────────────────────────┐
 │     Service Layer                   │
 │  (Lógica de negocio y validación)   │
-│   GenericService                    │
 │   PacienteService                   │
-│   HistoriaClinicaService            │
 └───────────┬─────────────────────────┘
             │
 ┌───────────▼─────────────────────────┐
@@ -312,9 +310,12 @@ HistoriaClinica{nroHistoria=30123456, grupoSanguineo=O-, antecedentes=Estado gri
 - `HistoriaClinicaDAO`: Implementación para historia clinica con las queries necesarias
 
 **Service/**
-- `GenericService<T>`: Interface genérica para servicios
-- `PacienteService`: Validaciones de paciente y coordinación con historia clinica
-- `HostoriaClinicaService`: Validaciones de historia clinica
+- `PacienteService`: 
+Coordina operaciones más complejas (como transacciones)
+Hace de intermediario entre el AppMenu y los DAOs
+Contiene la lógica de negocio
+Evita que el menú hable directamente con la base de datos
+Gestiona transacciones (commit / rollback)
 
 **Main/**
 - `Main.java`: Punto de entrada, orquestador del ciclo de menu, implementacion de CRUD
@@ -334,7 +335,7 @@ HistoriaClinica{nroHistoria=30123456, grupoSanguineo=O-, antecedentes=Estado gri
 │ eliminado               │──────┐   │ eliminado              │
 └─────────────────────────┘      │   └────────────────────────┘          
                                  │
-                                 └──▶ Relación 0..1
+                                 └──▶ Relación 1..1
 ```
 
 **Reglas:**
@@ -517,12 +518,12 @@ Este proyecto demuestra competencia en los siguientes criterios académicos:
 | Concepto | Implementación en el Proyecto |
 |----------|-------------------------------|
 | **Herencia** | Clase abstracta `Base` heredada por `Paciente` y `HistoriaClinica` |
-| **Polimorfismo** | Interfaces `GenericDAO` y `GenericService` |
+| **Polimorfismo** | Interfaces `GenericDAO`|
 | **Encapsulamiento** | Atributos privados con getters/setters en todas las entidades |
 | **Abstracción** | Interfaces que definen contratos sin implementación |
 | **JDBC** | Conexión, PreparedStatements, ResultSets, transacciones |
 | **DAO Pattern** | `PacienteDAO`, `HistoriaClinicaDAO` abstraen el acceso a datos |
-| **Service Layer** | Lógica de negocio separada en `PacienteService`, `HistoriaClinicaService` |
+| **Service Layer** | Lógica de negocio separada en `PacienteService`|
 | **Exception Handling** | Try-catch en todas las capas, propagación controlada |
 | **Resource Management** | Try-with-resources para AutoCloseable (Connection, Statement, ResultSet) |
 
