@@ -137,7 +137,7 @@ public void iniciar() {
                 false
             );
 
-            historiaService.insertar(hc);
+            pacienteService.insertarConHistoria(paciente);
 
             System.out.println(GREEN + "✔ Paciente creado exitosamente." + RESET);
         
